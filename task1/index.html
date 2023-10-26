@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .container h2 {
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    
+    .form-group input[type="submit"] {
+      background-color: #4CAF50;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .form-group input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login Form</h2>
+    <form id="loginForm" action="#" method="post">
+      <div class="form-group">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+        <div id="fullNameError" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+        <div id="emailError" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <div id="passwordError" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <div id="confirmPasswordError" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" required>
+        <div id="phoneNumberError" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+        <div id="addressError" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <div id="genderError" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const errorMessages = document.getElementsByClassName('error-message');
+      for (let i = 0; i < errorMessages.length; i++) {
+        errorMessages[i].textContent = '';
+      }
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const phoneNumber = document.getElementById('phoneNumber').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const gender = document.getElementById('gender').value;
+
+      let isValid = true;
+
+      if (fullName === '') {
+        document.getElementById('fullNameError').textContent = 'Please enter your full name';
+        isValid = false;
+      }
+
+      if (email === '') {
+        document.getElementById('emailError').textContent = 'Please enter your email address';
+        isValid = false;
+      } else if (!isValidEmail(email)) {
+        document.getElementById('emailError').textContent = 'Please enter a valid email address';
+        isValid = false;
+      }
+
+      if (password === '') {
+        document.getElementById('passwordError').textContent = 'Please enter a password';
+        isValid = false;
+      }
+
+      if (confirmPassword === '') {
+        document.getElementById('confirmPasswordError').textContent = 'Please confirm your password';
+        isValid = false;
+      } else if (confirmPassword !== password) {
+        document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+        isValid = false;
+      }
+
+      if (phoneNumber === '') {
+        document.getElementById('phoneNumberError').textContent = 'Please enter your phone number';
+        isValid = false;
+      } else if (!isValidPhoneNumber(phoneNumber)) {
+        document.getElementById('phoneNumberError').textContent = 'Please enter a valid phone number';
+        isValid = false;
+      }
+
+      if (address === '') {
+        document.getElementById('addressError').textContent = 'Please enter your address';
+        isValid = false;
+      }
+
+      if (gender === '') {
+        document.getElementById('genderError').textContent = 'Please select your gender';
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert('Form submitted successfully');
+      }
+    });
+
+    function isValidEmail(email) {
+      const emailRegex = /^\S+@\S+\.\S+$/;
+      return emailRegex.test(email);
+    }
+
+    function isValidPhoneNumber(phoneNumber) {
+      const phoneNumberRegex = /^\d{10}$/;
+      return phoneNumberRegex.test(phoneNumber);
+    }
+  </script>
+</body>
+</html>
+
+
+//array methods
+//mapping, filtering, revise array methods(2 days)
+//task 2- fetch data from json show in html table using array operations, 1st table full detaisl, 2nd filter, 3rd sort under some conditions.
+//button click change data-table / different tables.
